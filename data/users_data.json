@@ -1,0 +1,12 @@
+[
+  {
+    "id": "SV001",
+    "name": "Taylor Swift",
+    "images": ["data/images/taylor_swift/1.jpg", "data/images/taylor_swift/2.jpg"]
+  },
+  {
+    "id": "SV002",
+    "name": "Lê Hồng Anh",
+    "images": "data/images/anh_hong_le/1.jpeg"
+  }
+]
