@@ -36,6 +36,7 @@ class UserService(BaseService):
 
             embeddings = []
             for img_p in u_images:
+                img_p = self.face_service.load_image(img_p)
                 emb = self.face_service.extract_embedding(img_p)
                 if emb is not None:
                     embeddings.append(emb)
