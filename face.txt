@@ -1,0 +1,18 @@
+faces = self._app.get(frame)
+
+for face in faces:
+    # 1. Lấy Embedding (Vector 512 chiều)
+    vector = face.embedding 
+    
+    # 2. Lấy tọa độ khuôn mặt (để vẽ khung vuông)
+    box = face.bbox 
+    
+    # 3. Lấy 5 điểm mốc (mắt, mũi, miệng)
+    landmarks = face.kps 
+    
+    # 4. Lấy độ tin cậy (ví dụ: 0.98)
+    score = face.det_score 
+    
+    # --- Nếu bạn tò mò muốn xem TẤT CẢ những gì Face đang chứa ---
+    # Vì Face là một dict, bạn có thể in toàn bộ key của nó ra:
+    print(face.keys())

@@ -2,7 +2,10 @@ import psycopg2
 import sys
 
 # THAY ĐỔI TẠI ĐÂY ĐỂ TEST
-DB_URL = "postgresql://admin:123456@127.0.0.1:5432/faceid_db"
+DB_URL = ""
+if DB_URL is None or DB_URL.strip() == "":
+    print("❌ Vui lòng điền DB_URL vào biến môi trường hoặc trực tiếp trong code.")
+    sys.exit(1)
 
 
 def test_connection():

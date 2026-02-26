@@ -14,17 +14,14 @@ class CameraService:
         self.is_running = False
 
         self._thread = None
-        self._lock = threading.Lock()  # Khóa để đảm bảo an toàn đa luồng
+        self._lock = threading.Lock()
 
     def start(self) -> bool:
-        """Khởi chạy camera với cơ chế fallback và bắt lỗi chặt chẽ."""
         if self.is_running:
             return True
 
-        # 1. Thử mở camera bình thường
         self.cap = cv2.VideoCapture(self.camera_index)
 
-        # 2. Cơ chế Fallback (Đặc trị cho Windows)
         if not self.cap.isOpened():
             logger.warning(
                 f"⚠️ Không mở được camera index {self.camera_index}. Thử dùng DirectShow (DSHOW)...")
@@ -35,7 +32,6 @@ class CameraService:
                 "❌ Lỗi chí mạng: Không thể kết nối với bất kỳ Camera nào.")
             return False
 
-        # 3. Đọc thử 1 frame mồi để chắc chắn camera không bị đen
         ret, frame = self.cap.read()
         if not ret or frame is None:
             logger.error(
@@ -56,7 +52,6 @@ class CameraService:
             if self.cap and self.cap.isOpened():
                 ret, frame = self.cap.read()
                 if ret:
-                    # Dùng Lock khi ghi đè frame để tránh luồng AI đọc đúng lúc đang ghi dở
                     with self._lock:
                         self.frame = frame
             time.sleep(0.01)
@@ -76,5 +71,4 @@ class CameraService:
         logger.info("🛑 Camera Service đã dừng an toàn.")
 
 
-# Singleton object
 camera_service = CameraService()
